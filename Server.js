@@ -12,7 +12,6 @@ const JournalRoutes = require('./routes/MoodRouter');
 
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
 
 // ---- API ROUTES FIRST ----
 app.use('/api', authRoutes);
@@ -22,7 +21,7 @@ app.use('/api', JournalRoutes);
 
 // ---- THEN SERVE REACT BUILD ----
 app.use(express.static(path.join(__dirname, 'dist')));
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 

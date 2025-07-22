@@ -4,18 +4,18 @@ const AuthContoller = require('../controllers/authController');//we are taking e
 const router=express.Router();
 
 const multer=require('multer')
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('../Config/cloudinary');
 const path=require('path')
 
 // Set up storage for uploaded files
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // save all files in uploads folder
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname)); // unique name
-    }
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'lifehub-profile-photos',  // Cloudinary folder
+    allowed_formats: ['jpg', 'png', 'jpeg'],
+  },
 });
-
 const upload = multer({ storage });
 
 

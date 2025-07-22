@@ -6,7 +6,7 @@ const secret=process.env.JWT_SECRET;
 
 async function registerUser(req,res) {
     let {name,email,password}=req.body;
-    const photo = req.file ? req.file.filename : null; 
+    const photo = req.file ? req.file.path : null; 
     try{
         const existingUser= await User.findOne({email});
         if(existingUser){
